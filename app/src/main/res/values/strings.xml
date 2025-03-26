@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="Login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="welcome_to_your_to_do_list">Welcome to Your To-Do List!</string>
+    <string name="logout">Logout</string>
+    <string name="tasks">Tasks</string>
+    <string name="add">Add</string>
+    <string name="home">Home</string>
+    <string name="welcome_this_is_where_all_your_tasks_can_be_viewed">Welcome! This is where all your tasks can be viewed.</string>
+    <string name="category">Category</string>
+    <string name="task_description">Task Description</string>
+    <string name="task_title">Task Title</string>
+    <string name="Task_title">Task Title</string>
+    <string name="Task_description">Task Description</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="no_date_selected">No Date Selected</string>
+    <string name="save_task">Save Task</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_your_tasks_here">Add your tasks here</string>
+    <string name="delete">Delete</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="Delete_task">Delete Task</string>
+    <string name="task_categories">Task Categories</string>
+    <string name="view_completed_tasks">View Completed Tasks</string>
+    <string name="completed_tasks">Completed Tasks</string>
+</resources>
