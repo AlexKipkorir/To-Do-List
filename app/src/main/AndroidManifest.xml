@@ -25,13 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".SignupActivity"/>
-        <activity android:name=".DashboardActivity"/>
-        <activity android:name=".AddTaskActivity"/>
-        <activity android:name=".TaskCategoriesActivity"/>
-        <activity android:name=".CategoryTasksActivity"/>
-        <activity android:name=".CompletedTasksActivity"/>
+        <activity android:name=".LoginActivity" android:exported="true"/>
+        <activity android:name=".SignupActivity" android:exported="true"/>
+        <activity android:name=".DashboardActivity" android:exported="true"/>
+        <activity android:name=".AddTaskActivity" android:exported="true"/>
+        <activity android:name=".TaskCategoriesActivity" android:exported="true"/>
+        <activity android:name=".CategoryTasksActivity" android:exported="true"/>
+        <activity android:name=".CompletedTasksActivity" android:exported="true"/>
     </application>
 
 </manifest>

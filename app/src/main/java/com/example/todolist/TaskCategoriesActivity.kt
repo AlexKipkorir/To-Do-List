@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TaskCategoriesActivity : AppCompatActivity() {
     private lateinit var categoryListView: ListView
@@ -22,6 +23,8 @@ class TaskCategoriesActivity : AppCompatActivity() {
 
         categoryListView = findViewById(R.id.categoryListView)
         completedTasksButton = findViewById(R.id.completedTasksButton)
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, categories)
         categoryListView.adapter = adapter
@@ -35,9 +38,28 @@ class TaskCategoriesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, DashboardActivity::class.java))
+                    true
+                }
+                R.id.nav_add -> {
+                    startActivity(Intent(this, AddTaskActivity::class.java))
+                    true
+                }
+                R.id.nav_tasks -> true
+
+                else -> false
+            }
+        }
+
         // Open Completed Tasks screen
         completedTasksButton.setOnClickListener {
             startActivity(Intent(this, CompletedTasksActivity::class.java))
         }
+
+
+
     }
 }

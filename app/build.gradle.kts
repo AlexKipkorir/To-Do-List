@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
+//    kotlin("ksp") version "1.9.21"
 
 }
 
@@ -55,6 +56,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.recyclerview)
     implementation(libs.material)
+    implementation(libs.support.annotations)
+    implementation(libs.androidx.annotation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,4 +71,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     //noinspection GradleDependency
     implementation(libs.material3)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+//    ksp(libs.room.compiler)
 }
