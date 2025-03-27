@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.support.annotations)
     implementation(libs.androidx.annotation)
+    implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

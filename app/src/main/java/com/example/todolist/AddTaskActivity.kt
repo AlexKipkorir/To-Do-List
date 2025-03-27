@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.todolist.utils.NotificationHelper
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -119,6 +120,7 @@ class AddTaskActivity : AppCompatActivity() {
             .add(task)
             .addOnSuccessListener {
                 Toast.makeText(this, "Task added!", Toast.LENGTH_SHORT).show()
+                NotificationHelper.showNotification(this, "New Task Added", "Task: $title in $category")
                 finish() // Go back to Dashboard
             }
             .addOnFailureListener {

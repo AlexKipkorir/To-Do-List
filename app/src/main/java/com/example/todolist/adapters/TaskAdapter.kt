@@ -12,9 +12,9 @@ import com.example.todolist.data.data.models.Task
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TaskAdapter(
-    private var taskList: MutableList<Task>, // Changed to MutableList
-    private val onTaskDeleted: (Task) -> Unit, // Callback for swipe-to-delete
-    private val onTaskCompleted: (Task, Boolean) -> Unit // Callback for checkbox toggle
+    private var taskList: MutableList<Task>, // MutableList to allow dynamic updates
+    private val onTaskDeleted: (Task) -> Unit, // Callback for task deletion
+    private val onTaskCompleted: (String) -> Unit // Callback for marking task as complete
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val firestore = FirebaseFirestore.getInstance()
@@ -40,12 +40,14 @@ class TaskAdapter(
 
         // Handle checkbox toggle
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            onTaskCompleted(task, isChecked)
+            if (isChecked) {
+                moveTaskToCompleted(task, position)
+            }
         }
 
         // Handle delete button click
         holder.deleteButton.setOnClickListener {
-            onTaskDeleted(task)
+            removeTask(position)
         }
     }
 
@@ -57,13 +59,36 @@ class TaskAdapter(
         notifyDataSetChanged()
     }
 
-    // Function to remove task when swiped
+    // Function to remove task from list and Firestore
     fun removeTask(position: Int) {
         val task = taskList[position]
-        onTaskDeleted(task) // Call deletion function
-        taskList.removeAt(position)
-        notifyItemRemoved(position)
+        firestore.collection("tasks").document(task.id).delete()
+            .addOnSuccessListener {
+                taskList.removeAt(position)
+                notifyItemRemoved(position)
+                onTaskDeleted(task) // Call deletion callback
+            }
     }
+
+    // Function to move completed task to "Completed Tasks"
+    private fun moveTaskToCompleted(task: Task, position: Int) {
+        val completedTask = task.copy(completed = true)
+
+        // Add task to "Completed Tasks" collection
+        firestore.collection("completed_tasks").document(task.id)
+            .set(completedTask)
+            .addOnSuccessListener {
+                // Remove from "Tasks" collection
+                firestore.collection("tasks").document(task.id).delete()
+                    .addOnSuccessListener {
+                        taskList.removeAt(position)
+                        notifyItemRemoved(position)
+                        onTaskCompleted(task.toString()) // Notify completion
+                    }
+            }
+    }
+
+
 }
 
 
