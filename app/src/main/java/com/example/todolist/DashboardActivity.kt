@@ -59,10 +59,9 @@ class DashboardActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         taskAdapter = TaskAdapter(
             taskList,
-            { task -> deleteTaskFromFirestore(task) },
-            { taskId: String, isCompleted: Boolean ->
-                updateTaskCompletion(taskId, isCompleted)
-            }
+            { task -> deleteTaskFromFirestore(task) },  // Task deletion
+            { taskId -> updateTaskCompletion(taskId, true) }, // Task completed (String -> Unit)
+            { taskId, isCompleted -> updateTaskCompletion(taskId, isCompleted) } // Task update (String, Boolean) -> Unit
         )
 
         recyclerView.adapter = taskAdapter

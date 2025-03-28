@@ -14,7 +14,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class TaskAdapter(
     private var taskList: MutableList<Task>, // MutableList to allow dynamic updates
     private val onTaskDeleted: (Task) -> Unit, // Callback for task deletion
-    private val onTaskCompleted: (String) -> Unit // Callback for marking task as complete
+    private val onTaskCompleted: (String) -> Unit, // Callback for marking task as complete
+    private val onUpdateCompletion: (String, Boolean) -> Unit
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val firestore = FirebaseFirestore.getInstance()

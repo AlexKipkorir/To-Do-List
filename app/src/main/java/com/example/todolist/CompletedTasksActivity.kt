@@ -36,10 +36,14 @@ class CompletedTasksActivity : AppCompatActivity() {
             Toast.makeText(this, "Task deleted", Toast.LENGTH_SHORT).show()
         }
 
-        completedTaskAdapter = TaskAdapter(completedTaskList,
-            { task -> deleteTask(task) },
-            { task -> markTaskAsCompleted(task.id) }
+        completedTaskAdapter = TaskAdapter(
+            completedTaskList,
+            { task -> deleteTask(task) },  // Task deletion
+            { taskId -> markTaskAsCompleted(taskId, true) }, // Task completed (String -> Unit)
+            { taskId, isCompleted -> markTaskAsCompleted(taskId, isCompleted) } // Task update (String, Boolean) -> Unit
         )
+
+
 
         recyclerView.adapter = completedTaskAdapter
 
