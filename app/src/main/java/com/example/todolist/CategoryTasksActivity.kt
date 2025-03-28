@@ -8,6 +8,7 @@ class CategoryTasksActivity : AppCompatActivity() {
     private lateinit var taskListView: ListView
     private lateinit var categoryTitle: TextView
     private lateinit var category: String
+
     private val tasks = mapOf(
         "Work" to listOf("Finish report", "Email boss", "Prepare slides"),
         "Personal" to listOf("Buy groceries", "Call mom"),
@@ -22,11 +23,21 @@ class CategoryTasksActivity : AppCompatActivity() {
         categoryTitle = findViewById(R.id.categoryTitle)
         taskListView = findViewById(R.id.taskListView)
 
-        category = intent.getStringExtra("category") ?: "Unknown"
-        categoryTitle.text = "$category Tasks"
+        // Get category from intent
+        category = intent.getStringExtra("category")?.trim() ?: "Unknown"
+        println("Received category: $category") // Debug log
 
-        val taskList = tasks[category] ?: emptyList()
+        // Fix category lookup
+        val formattedCategory = category.replaceFirstChar { it.uppercaseChar() }
+        val taskList = tasks[formattedCategory] ?: emptyList()
+
+        // Update UI
+        categoryTitle.text = "$formattedCategory Tasks"
+
+        // Set up ListView adapter
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, taskList)
         taskListView.adapter = adapter
+        adapter.notifyDataSetChanged() // Ensure UI updates
     }
 }
+

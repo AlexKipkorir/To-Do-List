@@ -46,6 +46,7 @@ class CompletedTasksActivity : AppCompatActivity() {
 
 
         recyclerView.adapter = completedTaskAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         loadCompletedTasks()
     }
@@ -56,19 +57,26 @@ class CompletedTasksActivity : AppCompatActivity() {
                 .whereEqualTo("userId", user.uid)
                 .get()
                 .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        Toast.makeText(this, "No completed tasks found", Toast.LENGTH_SHORT).show()
+                        return@addOnSuccessListener
+                    }
+
                     completedTaskList.clear()
                     for (document in documents) {
                         val task = document.toObject(Task::class.java)
-                        task.id = document.id  // Fix: Assign document ID
+                        task.id = document.id  // Assign document ID
                         completedTaskList.add(task)
+                        println("Task loaded: ${task.title}") // Debugging log
                     }
-                    completedTaskAdapter.notifyItemRangeInserted(0, completedTaskList.size)
+                    completedTaskAdapter.notifyDataSetChanged() // Ensure RecyclerView updates
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to load completed tasks", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
         }
     }
+
 
 }
 

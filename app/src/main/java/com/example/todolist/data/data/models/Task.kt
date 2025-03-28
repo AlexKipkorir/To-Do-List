@@ -13,7 +13,8 @@ data class Task(
     val description: String = "",
     val category: String = "",
     val timestamp: Long = 0L,
-    val completed: Boolean = false
+    val completed: Boolean = false,
+    val userId: String = ""
 )
     {
         // Firestore needs a no-argument constructor
